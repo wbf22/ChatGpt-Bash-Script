@@ -2,7 +2,7 @@
 
 
 # Set your OpenAI API key
-API_KEY="sk-proj-*********************************"
+API_KEY="sk-proj-*********************************""
 
 
 
@@ -37,7 +37,7 @@ while true; do
   fi
 
   # check if conversation includes a file
-  file_path=$(echo "$user_input" | grep -oP '#\K.*?(?=\s|$)')
+  file_path=$(echo "$user_input" | ggrep -oP '#\K.*?(?=\s|$)')
   file_contents=""
   if [[ "$file_path" != "" ]]; then 
     # file_contents=$(cat "$file_path" | sed 's/"/\\"/g')
@@ -82,7 +82,7 @@ while true; do
   fi
 
   # Extract the assistant's message
-  assistant_message=$(echo "$response" | grep -oPz '(?s)"content": "\K.*?[^\\](?=")')
+  assistant_message=$(echo "$response" | ggrep -oPz '(?s)"content": "\K.*?[^\\](?=")')
   # assistant_message=$(echo "$response" | tr -d '\n' | jq -r '.choices[0].message.content') # this worked but removed new lines
 
   # Print the assistant's message
