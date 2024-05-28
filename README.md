@@ -41,4 +41,6 @@ Hey chat can you look at this file? #/path/to/my/file.txt
 ```
 (Right now we only support adding one file though. So you'll have to do seperate messages to add more than one)
 
+If you're getting weird errors and feel brave enough to debug the script, you can run the script with the `-v` flag to see more debug info.
+
 Anyway hope this doesn't have too many bugs! enjoy
