@@ -91,6 +91,7 @@ while true; do
   echo "\033[0m"
 
   # Append assistant's message to the conversation
+  assistant_message=$(echo "$assistant_message" | sed 's/\\"/<quote>/g')
   assistant_message_json=$(jq -n --arg content "$assistant_message" '{"role": "assistant", "content": $content}')
   assistant_message_json=$(echo "$assistant_message_json" | tr -d '\n')
   conversation=$(echo "$conversation" | jq --argjson message "$assistant_message_json" '. += [$message]')
