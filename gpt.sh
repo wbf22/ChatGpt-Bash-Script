@@ -42,10 +42,11 @@ while true; do
   if [[ "$file_path" != "" ]]; then 
     # file_contents=$(cat "$file_path" | sed 's/"/\\"/g')
     file_contents=$(printf '```\n%s\n```' "$(cat "$file_path" | sed 's/"/\\"/g')")
+    file_contents=$(echo "$file_contents" | sed 's/\\"/&quot;/g'| sed 's/"/&quot;/g')
   fi
 
   # Append user message to the conversation
-  user_input=$(echo "$user_input" | sed 's/"/\\"/g')
+  user_input=$(echo "$user_input" | sed 's/\\"/&quot;/g'| sed 's/"/&quot;/g')
   user_message=$(jq -n --arg content "$file_contents$user_input" '{"role": "user", "content": $content}')
   conversation=$(echo "$conversation" | jq --argjson message "$user_message" '. += [$message]' | tr -d '\n')
 
@@ -91,7 +92,7 @@ while true; do
   echo "\033[0m"
 
   # Append assistant's message to the conversation
-  assistant_message=$(echo "$assistant_message" | sed 's/\\"/<quote>/g')
+  assistant_message=$(echo "$assistant_message" | sed 's/\\"/&quot;/g'| sed 's/"/&quot;/g')
   assistant_message_json=$(jq -n --arg content "$assistant_message" '{"role": "assistant", "content": $content}')
   assistant_message_json=$(echo "$assistant_message_json" | tr -d '\n')
   conversation=$(echo "$conversation" | jq --argjson message "$assistant_message_json" '. += [$message]')
