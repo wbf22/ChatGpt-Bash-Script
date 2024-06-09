@@ -39,7 +39,7 @@ while true; do
   # check if conversation includes a file
   file_path=$(echo "$user_input" | grep -oP '#\K.*?(?=\s|$)')
   file_contents=""
-  if [[ "$file_path" != "" ]]; then 
+  if [ "$file_path" != "" ]; then 
     # file_contents=$(cat "$file_path" | sed 's/"/\\"/g')
     file_contents=$(printf '```\n%s\n```' "$(cat "$file_path" | sed 's/"/\\"/g')")
     file_contents=$(echo "$file_contents" | sed 's/\\"/&quot;/g'| sed 's/"/&quot;/g')
